@@ -6,6 +6,7 @@ pancake_in = open("./cakepairs.csv", mode='rb')
 other_in = open("./pairs2.csv", mode='r')
 
 result = open('./result.txt', mode='w')
+cakeSingle = open('./cakesingle.txt',mode= 'w')
 
 other_pairs = []
 pancake_pairs = []
@@ -39,12 +40,36 @@ with open('./pairs2.csv', encoding='utf-8') as f:
 
 
 # print(guitar_pairs)
+cake_list = []
+baseToken =['BUSD', 'USDT', 'USDC', 'TUSD', 'MIM']
+
+for p in pancake_pairs:
+    if p[1] in baseToken:
+        if p[2] not in baseToken:
+            cake_list.append(p)
+    else:
+        if p[2] in baseToken:
+            cake_list.append(p)
+
+# print(cake_list)
+
+for c in cake_list:
+    if c[1] in baseToken:
+        for c2 in cake_list:
+            if (c[4] in c2) and (c[1] not in c2):
+                cakeSingle.write(str(c))
+                cakeSingle.write('\n')
+                cakeSingle.write(str(c2))
+                cakeSingle.write('\n')
+                cakeSingle.write('----------')
+                cakeSingle.write('\n')
+
 
 
 for row in other_pairs:
     key1 = row[-2]
     key2 = row[-1]
-    for pancake_row in  pancake_pairs:
+    for pancake_row in pancake_pairs:
         if pancake_row.count(key1) and pancake_row.count(key2):
             pairs = [
                     pancake_row[0],
@@ -55,8 +80,9 @@ for row in other_pairs:
                     pancake_row[4]
                 ]
             available_pair.append(pairs)
-            result.write(str(pairs))
-            result.write('\n')
+            # result.write(str(pairs))
+            # result.write('\n')
 
-print(available_pair)
+# print(available_pair)
 result.close()
+cakeSingle.close()
