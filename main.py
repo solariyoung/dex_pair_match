@@ -57,12 +57,21 @@ for c in cake_list:
     if c[1] in baseToken:
         for c2 in cake_list:
             if (c[4] in c2) and (c[1] not in c2):
-                cakeSingle.write(str(c))
-                cakeSingle.write('\n')
-                cakeSingle.write(str(c2))
-                cakeSingle.write('\n')
-                cakeSingle.write('----------')
-                cakeSingle.write('\n')
+                if c2[1] in baseToken:
+                    pair1 = [
+                        c[2],
+                        c[4]
+                    ]
+                    pair = [
+                        c[1],
+                        c[2],
+                        c2[1],
+
+                    ]
+                    cakeSingle.write(str(pair1))
+                    cakeSingle.write('\n')
+                    cakeSingle.write(str(pair))
+                    cakeSingle.write('\n')
 
 
 
